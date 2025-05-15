@@ -11,12 +11,24 @@ return {
     },
   },
   {
+    'nvim-java/nvim-java',
+    dependencies = {
+      {
+        'nvim-java/nvim-java-core',
+        url = 'https://github.com/Kabil777/nvim-java-core.git',
+        branch = 'fix/mason-api-update',
+      },
+    },
+    opts = {},
+  },
+  {
     -- Main LSP Configuration
     'neovim/nvim-lspconfig',
     dependencies = {
       { 'mason-org/mason.nvim', opts = {} },
       'mason-org/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
+      'nvim-java/nvim-java',
 
       -- Useful status updates for LSP.
       { 'j-hui/fidget.nvim', opts = {} },
@@ -178,6 +190,8 @@ return {
         'stylua', -- Used to format Lua code
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
+
+      require('lspconfig').jdtls.setup {}
 
       require('mason-lspconfig').setup {
         ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
